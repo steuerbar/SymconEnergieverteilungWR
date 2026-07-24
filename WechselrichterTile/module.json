@@ -1,0 +1,14 @@
+{
+  "id": "{09596CF1-862E-4039-9EEB-BDB35E27974C}",
+  "name": "Fronius Energiefluss Kachel",
+  "type": 3,
+  "vendor": "steuerbar",
+  "aliases": [
+    "Wechselrichter Kachel",
+    "Fronius GEN24"
+  ],
+  "parentRequirements": [],
+  "childRequirements": [],
+  "implemented": [],
+  "prefix": "WEK"
+}

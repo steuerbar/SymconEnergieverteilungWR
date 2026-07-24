@@ -1,0 +1,12 @@
+{
+  "id": "{6E85C45A-BFA5-4175-92AB-C8723DF35C2C}",
+  "author": "steuerbar",
+  "name": "Fronius Energiefluss",
+  "url": "",
+  "compatibility": {
+    "version": "7.1"
+  },
+  "version": "1.0",
+  "build": 1,
+  "date": 1784937600
+}
