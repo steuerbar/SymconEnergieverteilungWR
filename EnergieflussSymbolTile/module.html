@@ -61,7 +61,6 @@
             <span class="node-label">PV</span>
             <svg viewBox="0 0 24 24"><path d="M8 4h10l-2 8H6zM10 4 8 12M14 4l-1 8M6 8h11M11 12v3M8 15h6"/><path d="m17 13-2 4h3l-2 4"/></svg>
             <strong id="pvPower">– kW</strong>
-            <small id="pvEnergy">Gesamt – kWh</small>
         </div>
         <div class="node grid">
             <span class="node-label">Netz · Smart Meter</span>
@@ -94,7 +93,6 @@ const $=id=>document.getElementById(id),de=(v,d=2)=>Number(v).toFixed(d).replace
 function flow(id,active,forward=true){const el=$(id);el.classList.toggle('idle',!active);el.classList.toggle('reverse',!forward)}
 function render(s){
     $('pvPower').textContent=de(s.pvPower)+' kW';
-    $('pvEnergy').textContent='Gesamt '+de(s.pvEnergy,1)+' kWh';
     $('gridPower').textContent=de(s.gridPower)+' kW';
     $('gridMode').textContent=s.gridMode==='import'?'Bezug':s.gridMode==='export'?'Einspeisung':'Ausgeglichen';
     $('houseLoad').textContent=de(s.houseLoad)+' kW';

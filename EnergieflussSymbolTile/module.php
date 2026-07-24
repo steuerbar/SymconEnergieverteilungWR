@@ -6,7 +6,7 @@ class EnergieflussSymbolKachel extends IPSModule
 {
     private const VARIABLES = [
         'PVPowerID',
-        'PVEnergyID',
+        'PVPower2ID',
         'BatterySocID',
         'BatteryPowerID',
         'GridPowerID',
@@ -19,6 +19,8 @@ class EnergieflussSymbolKachel extends IPSModule
         foreach (self::VARIABLES as $property) {
             $this->RegisterPropertyInteger($property, 0);
         }
+        // Legacy-Eigenschaft vorhandener Instanzen; wird in der Symbolkachel nicht mehr angezeigt.
+        $this->RegisterPropertyInteger('PVEnergyID', 0);
         $this->RegisterPropertyFloat('PVPowerFactor', 1.0);
         $this->RegisterPropertyFloat('BatteryPowerFactor', 1.0);
         $this->RegisterPropertyFloat('GridPowerFactor', 0.001);
@@ -75,13 +77,16 @@ class EnergieflussSymbolKachel extends IPSModule
 
     private function GetState(): array
     {
-        $pv = max(0.0, $this->Numeric('PVPowerID') * $this->ReadPropertyFloat('PVPowerFactor'));
+        $pv = max(
+            0.0,
+            ($this->Numeric('PVPowerID') + $this->Numeric('PVPower2ID'))
+            * $this->ReadPropertyFloat('PVPowerFactor')
+        );
         $battery = $this->Numeric('BatteryPowerID') * $this->ReadPropertyFloat('BatteryPowerFactor');
         $grid = $this->Numeric('GridPowerID') * $this->ReadPropertyFloat('GridPowerFactor');
         return [
             'valid'        => $this->AllVariablesValid(),
             'pvPower'      => round($pv, 2),
-            'pvEnergy'     => round(max(0.0, $this->Numeric('PVEnergyID')), 1),
             'batterySoc'   => round(max(0.0, min(100.0, $this->Numeric('BatterySocID'))), 1),
             'batteryPower' => round(abs($battery), 2),
             'batteryMode'  => abs($battery) < 0.03 ? 'idle' : ($battery < 0 ? 'discharge' : 'charge'),

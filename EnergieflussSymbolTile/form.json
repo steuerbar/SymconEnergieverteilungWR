@@ -3,20 +3,20 @@
     {
       "type": "SelectVariable",
       "name": "PVPowerID",
-      "caption": "Fronius AC-Leistung"
+      "caption": "PV DC-Leistung MPPT 1"
+    },
+    {
+      "type": "SelectVariable",
+      "name": "PVPower2ID",
+      "caption": "PV DC-Leistung MPPT 2"
     },
     {
       "type": "NumberSpinner",
       "name": "PVPowerFactor",
-      "caption": "Faktor AC-Leistung zu kW",
+      "caption": "Faktor MPPT-Leistungen zu kW",
       "digits": 3,
       "minimum": 0.001,
       "maximum": 1000
-    },
-    {
-      "type": "SelectVariable",
-      "name": "PVEnergyID",
-      "caption": "Fronius Gesamtertrag in kWh"
     },
     {
       "type": "SelectVariable",
