@@ -1,12 +1,9 @@
 {
   "id": "{C12C5765-6527-4011-B237-2BF6D9502DB6}",
-  "name": "Energiefluss Symbol Kachel",
+  "name": "GEN24 Energieverteilung",
   "type": 3,
   "vendor": "steuerbar",
-  "aliases": [
-    "GEN24 Energieverteilung",
-    "Symbolischer Energiefluss"
-  ],
+  "aliases": [],
   "parentRequirements": [],
   "childRequirements": [],
   "implemented": [],
