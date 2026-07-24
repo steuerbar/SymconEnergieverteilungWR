@@ -14,6 +14,11 @@ legt keine parallelen Energie- oder Leistungswerte an.
 - Hausverbrauch als zentrale Zusatzinformation
 - dezente, richtungsabhängige Energieflussanimation
 
+Die Topologie entspricht dem hybriden GEN24-Aufbau: Der BYD-Speicher ist
+direkt an der DC-Seite des Wechselrichters angeschlossen. Erst der
+Wechselrichter speist den AC-Hausbus. Das Smart Meter verbindet den
+Hausbus bidirektional mit dem Netz.
+
 Die Geräteillustrationen wurden speziell für diese Kachel erzeugt und
 liegen freigestellt im Modulordner `WechselrichterTile/assets`.
 

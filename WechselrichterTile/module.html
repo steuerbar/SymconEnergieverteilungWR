@@ -35,6 +35,7 @@
         .pv-flow { --flow:var(--orange); }
         .battery-flow { --flow:var(--green); }
         .grid-flow { --flow:var(--blue); }
+        .wire-label { font-size:3.2px; font-weight:800; letter-spacing:.08em; fill:currentColor; opacity:.42; }
         .status { position:absolute; z-index:5; top:1px; right:9px; width:7px; height:7px; border-radius:50%; background:#59b878; box-shadow:0 0 8px #59b878; }
         .status.bad { background:#d64c5f; box-shadow:0 0 8px #d64c5f; }
         @keyframes move { to { stroke-dashoffset:-22; } }
@@ -48,10 +49,13 @@
     <div class="stage">
         <i id="status" class="status"></i>
         <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            <path class="wire" d="M50 39 V59 M50 59 H19 V72 M50 59 H81 V72"/>
+            <path class="wire" d="M50 39 V59 M27 69 C30 54 36 43 44 37 M54 59 H81 V72"/>
             <path id="pvFlow" class="flow pv-flow" d="M50 39 V59"/>
-            <path id="batteryFlow" class="flow battery-flow" d="M19 72 V59 H50"/>
-            <path id="gridFlow" class="flow grid-flow" d="M81 72 V59 H50"/>
+            <path id="batteryFlow" class="flow battery-flow" d="M27 69 C30 54 36 43 44 37"/>
+            <path id="gridFlow" class="flow grid-flow" d="M81 72 V59 H54"/>
+            <text class="wire-label" x="34" y="47">DC</text>
+            <text class="wire-label" x="52" y="49">AC</text>
+            <text class="wire-label" x="70" y="57">NETZ</text>
         </svg>
         <div class="device inverter">
             <img src="__INVERTER_IMAGE__" alt="Wechselrichter">
