@@ -78,3 +78,6 @@ Konfiguration der Symbolkachel auf dem Testsystem:
 | BYD Lade-/Entladeleistung | `13731` | kW / `1` |
 | Smart-Meter-Netzleistung | `30359` | W / `0,001` |
 | Hausverbrauch | `57223` | W / `0,001` |
+
+Ab Version 1.3 trägt der Netzknoten in der Kachel die kompakte
+Beschriftung `Netz`.
