@@ -46,3 +46,5 @@ Konfiguration des Testsystems:
 Die frühere bildbasierte Vergleichskachel und sämtliche Aliasnamen wurden
 entfernt. In der Symcon-Instanzverwaltung erscheint unter dem Hersteller
 `steuerbar` nur noch `GEN24 Energieverteilung`.
+
+Build 6 gleicht den PHP-Klassennamen an den neuen Modulnamen an.

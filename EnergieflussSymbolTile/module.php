@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-class EnergieflussSymbolKachel extends IPSModule
+class GEN24Energieverteilung extends IPSModule
 {
     private const VARIABLES = [
         'PVPowerID',
