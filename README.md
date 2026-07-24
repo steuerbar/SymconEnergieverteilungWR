@@ -51,3 +51,13 @@ Verknüpfte Bestandsvariablen:
 Die lokale Modulquelle wird ausschließlich für den Testbetrieb verwendet.
 Für eine Verteilung auf weitere Systeme wird die Bibliothek später in ein
 GitHub-Repository übernommen.
+
+## Zweite Darstellungsvariante
+
+Ab Version 1.1 enthält die Bibliothek zusätzlich die Instanz
+`Energiefluss Symbol Kachel`. Sie verzichtet vollständig auf Gerätebilder
+und stellt PV, GEN24, Smart Meter/Netz, Haus und BYD als klare Symbole dar.
+Jeder Energiestrang besitzt eine eigene Farbe und Animation.
+
+Die erste bildbasierte `Fronius Energiefluss Kachel` bleibt unverändert
+erhalten, sodass beide Entwürfe parallel verglichen werden können.

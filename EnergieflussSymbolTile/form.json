@@ -1,0 +1,84 @@
+{
+  "elements": [
+    {
+      "type": "SelectVariable",
+      "name": "PVPowerID",
+      "caption": "Fronius AC-Leistung"
+    },
+    {
+      "type": "NumberSpinner",
+      "name": "PVPowerFactor",
+      "caption": "Faktor AC-Leistung zu kW",
+      "digits": 3,
+      "minimum": 0.001,
+      "maximum": 1000
+    },
+    {
+      "type": "SelectVariable",
+      "name": "PVEnergyID",
+      "caption": "Fronius Gesamtertrag in kWh"
+    },
+    {
+      "type": "SelectVariable",
+      "name": "BatterySocID",
+      "caption": "BYD-Ladezustand in Prozent"
+    },
+    {
+      "type": "SelectVariable",
+      "name": "BatteryPowerID",
+      "caption": "BYD Lade-/Entladeleistung"
+    },
+    {
+      "type": "NumberSpinner",
+      "name": "BatteryPowerFactor",
+      "caption": "Faktor Batterieleistung zu kW",
+      "digits": 3,
+      "minimum": 0.001,
+      "maximum": 1000
+    },
+    {
+      "type": "SelectVariable",
+      "name": "GridPowerID",
+      "caption": "Smart-Meter-Netzleistung"
+    },
+    {
+      "type": "NumberSpinner",
+      "name": "GridPowerFactor",
+      "caption": "Faktor Netzleistung zu kW",
+      "digits": 3,
+      "minimum": 0.001,
+      "maximum": 1000
+    },
+    {
+      "type": "SelectVariable",
+      "name": "HouseLoadID",
+      "caption": "Hausverbrauch"
+    },
+    {
+      "type": "NumberSpinner",
+      "name": "HouseLoadFactor",
+      "caption": "Faktor Hausverbrauch zu kW",
+      "digits": 3,
+      "minimum": 0.001,
+      "maximum": 1000
+    }
+  ],
+  "actions": [
+    {
+      "type": "Label",
+      "caption": "Symbolvariante: PV und BYD sind DC-seitig mit dem GEN24 verbunden. Netz und Haus liegen auf der AC-Seite."
+    }
+  ],
+  "status": [
+    {
+      "code": 102,
+      "icon": "active",
+      "caption": "Aktiv"
+    },
+    {
+      "code": 201,
+      "icon": "error",
+      "caption": "Messvariablen unvollständig"
+    }
+  ]
+}

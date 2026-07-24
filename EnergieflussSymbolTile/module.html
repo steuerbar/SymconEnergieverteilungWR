@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <style>
+        :root { color-scheme:light dark; --pv:#e99b2f; --grid:#5596ce; --home:#54aaa3; --battery:#df668f; --converter:#8581d4; --line:color-mix(in srgb,currentColor 18%,transparent); font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif; }
+        * { box-sizing:border-box; }
+        html,body { width:100%; height:100%; margin:0; overflow:hidden; color:CanvasText; }
+        body { padding:8px; }
+        .card { position:relative; height:100%; min-height:250px; overflow:hidden; border:1px solid var(--line); border-radius:16px; background:radial-gradient(circle at 50% 50%,color-mix(in srgb,var(--converter) 8%,Canvas),transparent 42%),color-mix(in srgb,Canvas 95%,transparent); }
+        .title-space { height:29px; }
+        .stage { position:relative; height:calc(100% - 29px); min-height:213px; }
+        .paths { position:absolute; z-index:1; inset:0; width:100%; height:100%; }
+        .base { fill:none; stroke:color-mix(in srgb,currentColor 18%,transparent); stroke-width:1.25; }
+        .flow { fill:none; stroke:var(--flow); stroke-width:1.8; stroke-linecap:round; stroke-dasharray:1 5.5; animation:move 1.15s linear infinite; }
+        .flow.reverse { animation-direction:reverse; }
+        .flow.idle { opacity:.16; animation:none; }
+        .pv-path { --flow:var(--pv); }
+        .grid-path { --flow:var(--grid); }
+        .home-path { --flow:var(--home); }
+        .battery-path { --flow:var(--battery); }
+        .junction { fill:var(--flow); opacity:.9; }
+        .node { position:absolute; z-index:3; width:82px; height:82px; transform:translate(-50%,-50%); display:flex; flex-direction:column; align-items:center; justify-content:center; border:2px solid var(--color); border-radius:50%; background:color-mix(in srgb,Canvas 92%,transparent); box-shadow:0 5px 14px #0002,inset 0 0 18px color-mix(in srgb,var(--color) 7%,transparent); text-align:center; }
+        .node svg { width:25px; height:25px; margin-bottom:2px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; opacity:.9; }
+        .node strong { font-size:.72rem; line-height:1; }
+        .node small { max-width:72px; margin-top:3px; overflow:hidden; opacity:.62; font-size:.43rem; line-height:1.1; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+        .node-label { position:absolute; left:50%; top:-16px; transform:translateX(-50%); color:color-mix(in srgb,var(--color) 78%,CanvasText); font-size:.55rem; font-weight:800; white-space:nowrap; }
+        .pv { --color:var(--pv); left:50%; top:18%; }
+        .grid { --color:var(--grid); left:17%; top:57%; }
+        .home { --color:var(--home); left:83%; top:57%; }
+        .battery { --color:var(--battery); left:50%; top:88%; }
+        .converter { --color:var(--converter); left:50%; top:57%; width:70px; height:58px; border-radius:14px; }
+        .converter svg { width:22px; height:22px; margin:0; }
+        .converter strong { margin-top:1px; font-size:.55rem; }
+        .converter small { font-size:.38rem; }
+        .status { position:absolute; z-index:5; top:2px; right:9px; width:7px; height:7px; border-radius:50%; background:#59b878; box-shadow:0 0 8px #59b878; }
+        .status.bad { background:#d64c5f; box-shadow:0 0 8px #d64c5f; }
+        @keyframes move { to { stroke-dashoffset:-13; } }
+        @media(max-width:430px){ .node{width:70px;height:70px}.converter{width:62px;height:52px}.node svg{width:22px;height:22px}.node strong{font-size:.62rem}.grid{left:16%}.home{left:84%} }
+        @media(prefers-reduced-motion:reduce){ .flow{animation:none} }
+    </style>
+</head>
+<body>
+<section class="card">
+    <div class="title-space" aria-hidden="true"></div>
+    <div class="stage">
+        <i id="status" class="status"></i>
+        <svg class="paths" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <path class="base" d="M50 31 V47 M29 57 H42 M58 57 H71 M50 67 V75"/>
+            <path id="pvFlow" class="flow pv-path" d="M50 31 V47"/>
+            <path id="gridFlow" class="flow grid-path" d="M29 57 H42"/>
+            <path id="homeFlow" class="flow home-path" d="M58 57 H71"/>
+            <path id="batteryFlow" class="flow battery-path" d="M50 75 V67"/>
+            <circle class="junction pv-path" cx="50" cy="39" r="1.15"/>
+            <circle class="junction grid-path" cx="35.5" cy="57" r="1.15"/>
+            <circle class="junction home-path" cx="64.5" cy="57" r="1.15"/>
+            <circle class="junction battery-path" cx="50" cy="71" r="1.15"/>
+        </svg>
+        <div class="node pv">
+            <span class="node-label">PV</span>
+            <svg viewBox="0 0 24 24"><path d="M8 4h10l-2 8H6zM10 4 8 12M14 4l-1 8M6 8h11M11 12v3M8 15h6"/><path d="m17 13-2 4h3l-2 4"/></svg>
+            <strong id="pvPower">– kW</strong>
+            <small id="pvEnergy">Gesamt – kWh</small>
+        </div>
+        <div class="node grid">
+            <span class="node-label">Netz · Smart Meter</span>
+            <svg viewBox="0 0 24 24"><path d="M12 3 7 21M12 3l5 18M9 10h6M8 15h8M5 21h14M8 7h8"/></svg>
+            <strong id="gridPower">– kW</strong>
+            <small id="gridMode">Netz</small>
+        </div>
+        <div class="node converter">
+            <span class="node-label">Wechselrichter</span>
+            <svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h3M8 11h3M14 9c1-2 3-2 4 0s3 2 4 0" transform="translate(-4 3)"/></svg>
+            <strong>GEN24</strong>
+            <small>DC ⇄ AC</small>
+        </div>
+        <div class="node home">
+            <span class="node-label">Zuhause</span>
+            <svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8M6 10v10h12V10M10 20v-6h4v6"/></svg>
+            <strong id="houseLoad">– kW</strong>
+            <small>Verbrauch</small>
+        </div>
+        <div class="node battery">
+            <span class="node-label">BYD-Speicher</span>
+            <svg viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M10 2h4M9 8h6M9 12h6M9 16h6"/></svg>
+            <strong id="batterySoc">– %</strong>
+            <small id="batteryMode">Bereit</small>
+        </div>
+    </div>
+</section>
+<script>
+const $=id=>document.getElementById(id),de=(v,d=2)=>Number(v).toFixed(d).replace('.',',');
+function flow(id,active,forward=true){const el=$(id);el.classList.toggle('idle',!active);el.classList.toggle('reverse',!forward)}
+function render(s){
+    $('pvPower').textContent=de(s.pvPower)+' kW';
+    $('pvEnergy').textContent='Gesamt '+de(s.pvEnergy,1)+' kWh';
+    $('gridPower').textContent=de(s.gridPower)+' kW';
+    $('gridMode').textContent=s.gridMode==='import'?'Bezug':s.gridMode==='export'?'Einspeisung':'Ausgeglichen';
+    $('houseLoad').textContent=de(s.houseLoad)+' kW';
+    $('batterySoc').textContent=de(s.batterySoc,0)+' %';
+    $('batteryMode').textContent=s.batteryMode==='charge'?'Lädt '+de(s.batteryPower)+' kW':s.batteryMode==='discharge'?'Entlädt '+de(s.batteryPower)+' kW':'Bereit';
+    $('status').classList.toggle('bad',!s.valid);
+    flow('pvFlow',s.pvPower>.03,true);
+    flow('gridFlow',s.gridMode!=='idle',s.gridMode==='import');
+    flow('homeFlow',s.houseLoad>.03,true);
+    flow('batteryFlow',s.batteryMode!=='idle',s.batteryMode==='discharge');
+}
+function handleMessage(data){render(typeof data==='string'?JSON.parse(data):data)}
+render(__INITIAL_STATE__);
+</script>
+</body>
+</html>
